@@ -83,7 +83,7 @@ def ascii_menu(text, options):
 def adicionar_musicas_e_generos_prontos():
     generos_existentes = session.query(Genero).all()
     if not generos_existentes:
-        generos = ["Rock", "Pop", "Jazz", "Eletrônica", "Clássica"]
+        generos = ["Rock", "Pop", "Jazz", "Eletrônica", "Clássica", "Hip-Hop", "Reggae", "Blues", "Samba", "MPB"]
         for g in generos:
             session.add(Genero(nome=g))
         session.commit()
@@ -93,14 +93,65 @@ def adicionar_musicas_e_generos_prontos():
         rock = session.query(Genero).filter_by(nome="Rock").first().id
         pop = session.query(Genero).filter_by(nome="Pop").first().id
         jazz = session.query(Genero).filter_by(nome="Jazz").first().id
-        # Criação de músicas fictícias sem artistas por enquanto
+        eletronica = session.query(Genero).filter_by(nome="Eletrônica").first().id
+        classica = session.query(Genero).filter_by(nome="Clássica").first().id
+        hiphop = session.query(Genero).filter_by(nome="Hip-Hop").first().id
+        reggae = session.query(Genero).filter_by(nome="Reggae").first().id
+        blues = session.query(Genero).filter_by(nome="Blues").first().id
+        samba = session.query(Genero).filter_by(nome="Samba").first().id
+        mpb = session.query(Genero).filter_by(nome="MPB").first().id
+
         musicas = [
             Musica(nome="Bohemian Rhapsody", id_genero=rock, data_lancamento=datetime.datetime(1975, 10, 31), duracao=360),
             Musica(nome="Billie Jean", id_genero=pop, data_lancamento=datetime.datetime(1982, 11, 30), duracao=300),
-            Musica(nome="Take Five", id_genero=jazz, data_lancamento=datetime.datetime(1959, 9, 21), duracao=320)
+            Musica(nome="Take Five", id_genero=jazz, data_lancamento=datetime.datetime(1959, 9, 21), duracao=320),
+            Musica(nome="Levels", id_genero=eletronica, data_lancamento=datetime.datetime(2011, 10, 28), duracao=305),
+            Musica(nome="Fur Elise", id_genero=classica, data_lancamento=datetime.datetime(1810, 1, 1), duracao=210),
+            Musica(nome="Lose Yourself", id_genero=hiphop, data_lancamento=datetime.datetime(2002, 10, 28), duracao=326),
+            Musica(nome="No Woman No Cry", id_genero=reggae, data_lancamento=datetime.datetime(1974, 10, 26), duracao=255),
+            Musica(nome="The Thrill is Gone", id_genero=blues, data_lancamento=datetime.datetime(1969, 12, 1), duracao=290),
+            Musica(nome="Aquarela do Brasil", id_genero=samba, data_lancamento=datetime.datetime(1939, 1, 1), duracao=340),
+            Musica(nome="Águas de Março", id_genero=mpb, data_lancamento=datetime.datetime(1972, 3, 21), duracao=258)
         ]
         session.add_all(musicas)
         session.commit()
+# Função para adicionar músicas e gêneros prontos
+def adicionar_musicas_e_generos_prontos():
+    generos_existentes = session.query(Genero).all()
+    if not generos_existentes:
+        generos = ["Rock", "Pop", "Jazz", "Eletrônica", "Clássica", "Hip-Hop", "Reggae", "Blues", "Samba", "MPB"]
+        for g in generos:
+            session.add(Genero(nome=g))
+        session.commit()
+
+    musicas_existentes = session.query(Musica).all()
+    if not musicas_existentes:
+        rock = session.query(Genero).filter_by(nome="Rock").first().id
+        pop = session.query(Genero).filter_by(nome="Pop").first().id
+        jazz = session.query(Genero).filter_by(nome="Jazz").first().id
+        eletronica = session.query(Genero).filter_by(nome="Eletrônica").first().id
+        classica = session.query(Genero).filter_by(nome="Clássica").first().id
+        hiphop = session.query(Genero).filter_by(nome="Hip-Hop").first().id
+        reggae = session.query(Genero).filter_by(nome="Reggae").first().id
+        blues = session.query(Genero).filter_by(nome="Blues").first().id
+        samba = session.query(Genero).filter_by(nome="Samba").first().id
+        mpb = session.query(Genero).filter_by(nome="MPB").first().id
+
+        musicas = [
+            Musica(nome="Bohemian Rhapsody", id_genero=rock, data_lancamento=datetime.datetime(1975, 10, 31), duracao=360),
+            Musica(nome="Billie Jean", id_genero=pop, data_lancamento=datetime.datetime(1982, 11, 30), duracao=300),
+            Musica(nome="Take Five", id_genero=jazz, data_lancamento=datetime.datetime(1959, 9, 21), duracao=320),
+            Musica(nome="Levels", id_genero=eletronica, data_lancamento=datetime.datetime(2011, 10, 28), duracao=305),
+            Musica(nome="Fur Elise", id_genero=classica, data_lancamento=datetime.datetime(1810, 1, 1), duracao=210),
+            Musica(nome="Lose Yourself", id_genero=hiphop, data_lancamento=datetime.datetime(2002, 10, 28), duracao=326),
+            Musica(nome="No Woman No Cry", id_genero=reggae, data_lancamento=datetime.datetime(1974, 10, 26), duracao=255),
+            Musica(nome="The Thrill is Gone", id_genero=blues, data_lancamento=datetime.datetime(1969, 12, 1), duracao=290),
+            Musica(nome="Aquarela do Brasil", id_genero=samba, data_lancamento=datetime.datetime(1939, 1, 1), duracao=340),
+            Musica(nome="Águas de Março", id_genero=mpb, data_lancamento=datetime.datetime(1972, 3, 21), duracao=258)
+        ]
+        session.add_all(musicas)
+        session.commit()
+
 
 # Tela de login e registro
 def tela_login_registro():
@@ -138,7 +189,12 @@ def logar():
 # Página inicial do usuário
 def usuario_pagina_inicial(usuario):
     while True:
-        opcao = ascii_menu(f"Bem-vindo, {usuario.nome}!", ["Ver músicas", "Buscar", "Ver minhas playlists", "Publicar uma música"])
+        opcao = ascii_menu(f"Bem-vindo, {usuario.nome}!", 
+                          ["Ver músicas", 
+                           "Buscar", 
+                           "Ver minhas playlists", 
+                           "Publicar uma música", 
+                           "Ver meu histórico de reprodução"])
         if opcao == 1:
             ver_musicas(usuario)
         elif opcao == 2:
@@ -147,6 +203,9 @@ def usuario_pagina_inicial(usuario):
             ver_playlists(usuario)
         elif opcao == 4:
             publicar_musica(usuario)
+        elif opcao == 5:
+            ver_historico_reproducao(usuario)
+
 
 # Ver músicas disponíveis no banco de dados
 def ver_musicas(usuario):
@@ -281,6 +340,20 @@ def publicar_musica(usuario):
     session.add(nova_musica)
     session.commit()
     print(f"Música {nome} publicada com sucesso!")
+
+# Função para ver o histórico de reprodução do usuário
+def ver_historico_reproducao(usuario):
+    historico = session.query(Reproduz).filter_by(id_usuario=usuario.id).all()
+    if historico:
+        print("Seu histórico de reprodução:")
+        for item in historico:
+            musica = session.query(Musica).filter_by(id=item.id_musica).first()
+            print(f"Música: {musica.nome} | Data de reprodução: {item.data_reproducao}")
+    else:
+        print("Seu histórico de reprodução está vazio.")
+    input("Pressione qualquer tecla para voltar à página inicial...")
+
+
 
 # Inicializar o sistema
 if __name__ == "__main__":
