@@ -1,7 +1,5 @@
 # tde-arquiteturadebancodeedados
 
-# Music App
-
 Este é um programa simples em Python que simula um sistema de gerenciamento de músicas, playlists e reprodução. O sistema permite que o usuário se registre, faça login, crie playlists, adicione músicas, reproduza músicas e publique suas próprias músicas, transformando-se em um artista.
 
 ## Funcionalidades
